@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CMCS.Web.Models.Claim>
+
+<h2>Admin Dashboard - Verify Claims</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Lecturer</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.LecturerName</td>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate</td>
+                <td>@claim.Status</td>
+                <td>
+                    <form asp-action="Approve" method="post" asp-route-id="@claim.Id" style="display:inline;">
+                        <button class="btn btn-success btn-sm">Approve</button>
+                    </form>
+                    <form asp-action="Reject" method="post" asp-route-id="@claim.Id" style="display:inline;">
+                        <button class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CMCS.Web.Models.Claim>
+
+<h2>My Claims</h2>
+<a asp-action="Create" class="btn btn-primary">Submit New Claim</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lecturer</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.LecturerName</td>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate</td>
+                <td>@claim.Status</td>
+                <td>@claim.DateSubmitted</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/signalr/signalr.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder().withUrl("/claimshub").build();
+    connection.on("ReceiveClaimUpdate", message => alert(message));
+    connection.start();
+</script>
+

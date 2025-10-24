@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CMCS Claims Portal</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="bg-primary text-white p-3 mb-4">
+        <div class="container">
+            <h1>CMCS Claims Management System</h1>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/Claims/Create">Submit Claim</a>
+                <a class="nav-link" href="/Claims/Verify">Verify Claims</a>
+                <a class="nav-link" href="/Claims/Track">Track Status</a>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted mt-4 py-3 bg-light">
+        <div class="container text-center">
+            &copy; 2025 - CMCS Portal | Powered by ASP.NET Core
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

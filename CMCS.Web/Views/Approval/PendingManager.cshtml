@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CMCS.Web.Models.Claim>
+<h2>Manager - Claims Awaiting Manager Approval</h2>
+<table class="table">
+    <thead>
+        <tr><th>Id</th><th>Lecturer</th><th>Hours</th><th>Total</th><th>Date</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Id</td>
+                <td>@c.LecturerName</td>
+                <td>@c.HoursWorked</td>
+                <td>@c.TotalPayment</td>
+                <td>@c.DateSubmitted</td>
+                <td>
+                    <form asp-action="ApproveAsManager" method="post" asp-route-id="@c.Id" style="display:inline">
+                        <input type="hidden" name="comment" value="Approved by manager" />
+                        <button class="btn btn-success btn-sm">Approve</button>
+                    </form>
+                    <form asp-action="RejectAsManager" method="post" asp-route-id="@c.Id" style="display:inline">
+                        <input type="hidden" name="comment" value="Rejected by manager" />
+                        <button class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

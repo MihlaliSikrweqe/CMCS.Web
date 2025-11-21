@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CMCS.Web.Models.Claim>
+<h2>HR - Approved Claims (ready for payroll)</h2>
+<p>
+    <a asp-action="ExportApprovedClaimsCsv" class="btn btn-sm btn-outline-primary">Export CSV</a>
+</p>
+<table class="table table-sm">
+    <thead><tr><th>Id</th><th>Lecturer</th><th>Total</th><th>Submitted</th></tr></thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Id</td>
+                <td>@c.LecturerName</td>
+                <td>@c.TotalPayment.ToString("C")</td>
+                <td>@c.DateSubmitted</td>
+            </tr>
+        }
+    </tbody>
+</table>

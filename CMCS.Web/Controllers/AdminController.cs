@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using CMCS.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using CMCS.Web.Models; // <-- Add this if ClaimStatus is in this namespace
+using Microsoft.EntityFrameworkCore; // <-- Add this using directive
 
 namespace CMCS.Web.Controllers
 {
@@ -31,7 +33,7 @@ namespace CMCS.Web.Controllers
             var claim = await _context.Claims.FindAsync(id);
             if (claim == null) return NotFound();
 
-            claim.Status = "Approved";
+            claim.Status = ClaimStatus.ApprovedByManager;
             await _context.SaveChangesAsync();
             await _hub.Clients.All.SendAsync("ReceiveClaimUpdate", "Claim approved.");
             return RedirectToAction(nameof(Index));
@@ -43,7 +45,7 @@ namespace CMCS.Web.Controllers
             var claim = await _context.Claims.FindAsync(id);
             if (claim == null) return NotFound();
 
-            claim.Status = "Rejected";
+            claim.Status = ClaimStatus.Rejected;
             await _context.SaveChangesAsync();
             await _hub.Clients.All.SendAsync("ReceiveClaimUpdate", "Claim rejected.");
             return RedirectToAction(nameof(Index));

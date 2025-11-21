@@ -1,11 +1,11 @@
-﻿namespace CMCS.Web.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CMCS.Web.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int UserId { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public int RoleId { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        // Add lecturer-specific fields if needed (BankAccountNumber, StaffNumber)
+        public string? StaffNumber { get; set; }
     }
 }

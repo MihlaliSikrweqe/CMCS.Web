@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CMCS.Web.Models
 {
@@ -7,28 +6,41 @@ namespace CMCS.Web.Models
     {
         public int Id { get; set; }
 
+        // Who submitted (FK to Identity user)
         [Required]
-        [Display(Name = "Lecturer Name")]
-        public string LecturerName { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
-        [Required]
-        [Display(Name = "Hours Worked")]
+        [Required, Display(Name = "Lecturer Name")]
+        public string LecturerName { get; set; } = string.Empty;
+
+        [Required, Display(Name = "Hours Worked"), Range(0.01, 1000, ErrorMessage = "Enter a valid number of hours (>0).")]
         public double HoursWorked { get; set; }
 
-        [Required]
-        [Display(Name = "Hourly Rate")]
+        [Required, Display(Name = "Hourly Rate"), Range(0.01, 1000000, ErrorMessage = "Enter a valid rate (>0).")]
         public decimal HourlyRate { get; set; }
 
-        [Display(Name = "Notes")]
+        [Display(Name = "Total Payment")]
+        public decimal TotalPayment { get; set; } // server-calculated
+
+        [Display(Name = "Notes"), StringLength(2000)]
         public string? Notes { get; set; }
 
-        [Display(Name = "Document")]
+        [Display(Name = "Document Path")]
         public string? DocumentPath { get; set; }
 
-        public string Status { get; set; } = "Pending";
+        [Required]
+        public ClaimStatus Status { get; set; } = ClaimStatus.Pending;
 
-        [Display(Name = "Date Submitted")]
-        public DateTime DateSubmitted { get; set; } = DateTime.Now;
+        public DateTime DateSubmitted { get; set; } = DateTime.UtcNow;
+    }
+
+    public enum ClaimStatus
+    {
+        Pending = 0,
+        ApprovedByCoordinator = 1,
+        ApprovedByManager = 2,
+        Rejected = 3,
+        Paid = 4
     }
 }
 

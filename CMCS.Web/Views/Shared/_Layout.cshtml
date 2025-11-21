@@ -39,4 +39,21 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/claimshub")
+        .withAutomaticReconnect()
+        .build();
+
+    connection.on("ReceiveClaimUpdate", message => {
+        // simple UI notification — you can upgrade to toast
+        alert(message);
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+</script>
+
 </html>
